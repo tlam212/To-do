@@ -3,10 +3,25 @@ class Todos {
     this.todos = []
     this.adapter = new TodoAdapter()
     this.fetchTodos()
+    this.init()
+  }
+
+  init(){
+    this.todoContainer = document.getElementById('todo-container')
+    this.toggleForm = document.getElementById('toggle-form')
+    this.toggleForm.addEventListener('submit', this.createTodo.bind(this))
+  }
+
+  createTodo = (event) => {
+    console.log(this)
+    event.preventDefault()
+    console.log(this.newTodoBody.value)
+
   }
   fetchTodos(){
     this.adapter.getTodos().then(todos => {
-      todos.forEach(todo => this.todos.push(todo))
+      todos.forEach(todo => this.todos.push(new Todo(todo)))
+      console.log(this.todos)
     })
     .then(data => {
       this.renderToDom()
@@ -14,19 +29,15 @@ class Todos {
   }
 
   renderToDom(){
-    const todoContainer = document.getElementById('todo-container')
-    todoContainer.innerHTML = "new todo added"
 
+    const ulTag = document.createElement('ul')
+    const liTag = document.createElement('li')
+    liTag.innerHTML = `${this.todos.map(todo => todo.renderLi())}`
+    liTag.addEventListener("click", function(liTag){
+    this.classList.toggle("completed")})
+    ulTag.append(liTag)
+    this.todoContainer.append(ulTag)
 
-    // todoUl = document.createElement('ul')
-    // todoLi = document.createElement('li')
-    // todoSpan = document.createElement('span')
-    // todoSpan.classList.add('trashIcon')
-    // icon = document.createElement('i')
-    // icon.classList.add('fas fa-trash-alt')
-    // todoDiv.append(todoUl)
-    // todoUl.append(todoLi)
-    // to
 
   }
 }
