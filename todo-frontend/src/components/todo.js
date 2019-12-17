@@ -5,6 +5,7 @@ class Todo {
   }
 
   renderLi(){
-  return  `<span class="trashIcon"><i class="fas fa-trash-alt"></i></span>${this.body}`
+  return  `<li><span class="trashIcon"><i class="fas fa-trash-alt"></i></span>${this.body}</li>`
   }
+
 }

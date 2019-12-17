@@ -8,20 +8,30 @@ class Todos {
 
   init(){
     this.todoContainer = document.getElementById('todo-container')
-    this.toggleForm = document.getElementById('toggle-form')
-    this.toggleForm.addEventListener('submit', this.createTodo.bind(this))
+    this.newTodoBody = document.getElementById('new-todo-body')
+    this.inputTag = document.querySelector('input')
+    this.inputTag.addEventListener('keypress', this.createTodo)
   }
 
-  createTodo = (event) => {
-    console.log(this)
-    event.preventDefault()
-    console.log(this.newTodoBody.value)
+  createTodo = (e) => {
+  const value = this.inputTag.value
+    if (e.which === 13){
+        e.preventDefault()
+        this.adapter.createTodo(value).then(todo => {
+          this.todos.push(new Todo(todo))
+          this.inputTag.value = ""
+          this.renderToDom()
+      })
+    }
 
   }
+
+
+
   fetchTodos(){
     this.adapter.getTodos().then(todos => {
       todos.forEach(todo => this.todos.push(new Todo(todo)))
-      console.log(this.todos)
+
     })
     .then(data => {
       this.renderToDom()
@@ -31,11 +41,9 @@ class Todos {
   renderToDom(){
 
     const ulTag = document.createElement('ul')
-    const liTag = document.createElement('li')
-    liTag.innerHTML = `${this.todos.map(todo => todo.renderLi())}`
-    liTag.addEventListener("click", function(liTag){
-    this.classList.toggle("completed")})
-    ulTag.append(liTag)
+
+    ulTag.innerHTML = `${this.todos.map(todo => todo.renderLi()).join('')}`
+
     this.todoContainer.append(ulTag)
 
 

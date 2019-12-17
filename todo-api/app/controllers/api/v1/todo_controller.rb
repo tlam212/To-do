@@ -12,7 +12,7 @@ class Api::V1::TodoController < ApplicationController
 
   def create
     @todo = Todo.create(todo_params)
-    rrender json: @todo, status: 200
+    render json: @todo, status: 200
   end
 
   def update
