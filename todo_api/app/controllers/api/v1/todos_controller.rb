@@ -1,4 +1,4 @@
-class Api::V1::TodoController < ApplicationController
+class Api::V1::TodosController < ApplicationController
 
   def index
     @todos = Todo.all
@@ -34,9 +34,6 @@ class Api::V1::TodoController < ApplicationController
   def todo_params
     params.require(:todo).permit(:body)
   end
-
-
-
 
 
 

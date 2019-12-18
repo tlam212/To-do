@@ -11,6 +11,11 @@ class Todos {
     this.newTodoBody = document.getElementById('new-todo-body')
     this.inputTag = document.querySelector('input')
     this.inputTag.addEventListener('keypress', this.createTodo)
+    this.todoContainer.addEventListener('dblclick', this.editToDo)
+  }
+
+  editToDo = () => {
+    console.log('click')
   }
 
   createTodo = (e) => {
