@@ -84,3 +84,8 @@ body {
  .fa-plus {
  	float: right;
  	}
+
+  .editable {
+    border: 1px solid black;
+
+  }
